@@ -1,0 +1,11 @@
+<body>
+{% for item in data %}
+<form method="POST" action="checkview">
+    {% csrf_token %}
+<a>{{item.name}}</a>
+<p>{{item.code}}<p>
+<button name="code" value={{item.code}}>Send Message</button>
+    <hr>
+</form>
+{% endfor %}
+</body>

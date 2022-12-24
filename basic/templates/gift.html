@@ -1,0 +1,82 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Christmas Giveaway</title>
+    <link rel="stylesheet" href="{% static 'styles-index.css'%}" />
+    <script src="dist/script.js"></script>
+</head>
+<body>
+    <!--navbar-->
+    <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
+        <div class="flex items-center">
+          <a href='home'><img  src={% static 'assets/Logo_black.svg'%} alt="Logo" class="h-4" /></a>
+        </div>
+        <ul class="font-montserrat items-center hidden md:flex">
+          <li class="mx-3 ">
+            <a class="growing-underline" href="recieve">Recieve a gift</a>
+          </li>
+          <li class="growing-underline mx-3">
+            <a href="gift">Share gifts</a>
+          </li>
+          <li class="growing-underline mx-3">
+            <a href="">About</a>
+          </li>
+        </ul>
+        
+        <div id="showMenu" class="md:hidden">
+          <img src="{% static 'assets/logos/Menu.svg'%}" alt="Menu icon" />
+        </div>
+      </nav>
+      <!--mob-navbar-->
+      <div id='mobileNav' class="hidden px-4 py-6 fixed top-0 left-0 h-full w-full bg-secondary z-20 animate-fade-in-down">
+        <div id="hideMenu" class="flex justify-end">
+          <img src='dist/assets/logos/Cross.svg' alt="" class="h-16 w-16" />
+        </div>
+        <ul class="font-montserrat flex flex-col mx-8 my-24 items-center text-3xl">
+          <li class="my-6">
+            <a href="recieve">Recieve a gift</a>
+          </li>
+          <li class="my-6">
+            <a href="gift">Share a gift</a>
+          </li>
+          <li class="my-6">
+            <a href="">About</a>
+          </li>
+        </ul>
+      </div>
+
+    <!--Cards-->
+    <section class="py-32 bg-red-500 h-screen p-3 bg-secondary" >
+        <div class="font-montserrat">
+            <button  class="bg-gradient-to-r from-red-200 to-red-600 mx-7 px-4 py-2 rounded-lg border-2 border-black border-solid text-white mr-2 mb-2" style="background-color:#991b1b">
+           <a href='gift_form'> Add a Gift</a>
+            </button>
+        </div>
+        <br>
+        <h1 class="text-xl font-montserrat leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white px-9">Requests</h1>
+        {% for req in data %} 
+        <form method="POST" >
+            {% csrf_token %}
+        <div class="p-6 mx-10 my-3 bg-indigo-100 rounded-lg border border-gray-200 shadow-md" style="background-color:#ffffff;">
+            <div><a href="#">
+                <div class="mb-2 text-md font-montserrat tracking-tight text-gray-900">
+                    {{req.requestedby}} has requested the item {{req.title}}
+                </div>
+                </a>
+                <div class="font-montserrat">
+                    <button type="submit" name='accepted' value={{req.postid}}|{{req.requestedby}} formaction='accept' class="bg-black px-2 py-2 rounded-lg border-2 border-black border-solid text-white mr-2 mb-2">
+                    Accept
+                    </button>
+                    <button type="submit" name='denied' value={{req.postid}}|{{req.requestedby}} formaction='deny' class="px-2 py-2 border-2 border-black border-solid rounded-lg">
+                    Reject
+                    </button>
+                </div>
+            </div>
+        </div>
+        </form>
+        {% endfor %}
+    </section>
+</body>
+</html>

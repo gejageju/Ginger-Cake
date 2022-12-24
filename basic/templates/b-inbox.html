@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christmas Giveaway</title>
+  <link rel="stylesheet" href="{% static 'styles-index.css'%}" />
+  <script src="{% static 'script-index.js'%}"></script>
+  <link href='https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css'rel="stylesheet">
+</head>
+<body>
+  
+  <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
+    <div class="flex items-center">
+      <img src="{% static 'assets/Logo_black.svg'%}" alt="Logo" class="h-4" />
+    </div>
+    <ul class="font-montserrat items-center hidden md:flex">
+      <li class="mx-3 ">
+        <a class="growing-underline" href="recieve">Recieve a gift</a>
+      </li>
+      <li class="growing-underline mx-3">
+        <a href="gift">Share gifts</a>
+      </li>
+      <li class="growing-underline mx-3">
+        <a href="">About</a>
+      </li>
+    </ul>
+    <div class="font-montserrat hidden md:block">
+      <button class="mr-6"><a href="logout">Logout</a></button>
+    </div>
+    <div id="showMenu" class="md:hidden">
+      <img src="{% static 'assets/logos/Menu.svg'%}" alt="Menu icon" />
+    </div>
+  </nav>
+  <div id='mobileNav' class="hidden px-4 py-6 fixed top-0 left-0 h-full w-full bg-secondary z-20 animate-fade-in-down">
+    <div id="hideMenu" class="flex justify-end">
+      <img src="{% static 'assets/logos/Cross.svg'%}" alt="" class="h-16 w-16" />
+    </div>
+    <ul class="font-montserrat flex flex-col mx-8 my-24 items-center text-3xl">
+      <li class="my-6">
+        <a href="recieve">Recieve a gift</a>
+      </li>
+      <li class="my-6">
+        <a href="gift">Share a gift</a>
+      </li>
+      <li class="my-6">
+        <a href="">About</a>
+      </li>
+    </ul>
+  </div>
+
+<!-- component -->
+<main class="flex py-20 h-screen p-3 bg-secondary">
+    
+    <section class="flex flex-col mx-10 pt-3 w-4/12 bg-gray-50 h-full overflow-y-scroll">
+      
+      <label class="px-3">
+        <input class="rounded-lg border-2 border-black text-montserrat border-solid p-4 bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 w-full"
+          placeholder="Search..." />
+      </label>
+      
+      <ul class="mt-6">
+        {% for item in data %}
+        <form method="POST" action="checkview">
+            {% csrf_token %} 
+        <li class="py-5 border-b px-3 transition hover:bg-indigo-100">
+          <a href="#" class="flex justify-between items-center">
+            <h3 class="text-lg font-montserrat font-medium"><button name="code" value={{item.code}} >{{item.name}}</button></h3>
+            
+          </a>
+          <div class="text-md italic font-montserrat text-gray-600">Click to view new messages</div>
+        </li>
+    </form>
+        {% endfor %}
+      </ul>
+    </section>
+    <section class="w-6/12 px-4 flex flex-col bg-white rounded-r-3xl" style="background-image: url(https://cdn.discordapp.com/attachments/769080039329103906/1056143117394391040/v1062-pattern-15a-removebg-preview.png);">
+        
+    </section>
+  </main>
+</section>
+</body>
+<!-- <body>
+{% for item in data %}
+<form method="POST" action="checkview">
+    {% csrf_token %}
+<a>{{item.name}}</a>
+<p>{{item.code}}<p>
+<button name="code" value={{item.code}}>Send Message</button>
+    <hr>
+</form>
+{% endfor %}
+</body> -->

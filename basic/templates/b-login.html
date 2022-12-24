@@ -1,0 +1,25 @@
+{% load static %}
+<head></head>
+<body>
+    
+                <form name="form" method ="POST" action ="login_submit">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="title"><b>Login<b></div>
+                        <label >Username</label>
+                        <input type="text" class="form-control" id="name" name="user" placeholder="Enter username" required>
+                        <label >Password</label>
+                        <input type="password" class="form-control" name="pwd" id="Password" placeholder="Enter password" required>
+                        {%if error%}
+                        <div style="color:red;">INVALID USERNAME OR PASSWORD
+                        </div>
+                        {% endif%}
+                      </div>
+                      <input class="submit-btn" type="submit" value="Login">
+                      <div>
+                          
+                          <!-- Minified CSS and JS -->
+                          
+                          
+                    </form>
+</body>

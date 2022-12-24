@@ -1,0 +1,16 @@
+<button><a href='gift_form'>Add item<a/></button>
+    <hr>
+    <h1>Requests</h1>
+{% for req in data %}
+<div>
+    <form method="POST" >
+        {% csrf_token %}
+<div>{{req.requestedby}} has requested <div>
+<div>the item {{req.title}}<div>
+<button type="submit" formaction='accept' name="accepted" value={{req.postid}}|{{req.requestedby}}>Accept</button>
+<button type="submit" formaction='deny' name="denied" value={{req.postid}}|{{req.requestedby}}>Deny</button>
+<hr>
+</form>
+<div>
+{% endfor %}
+        

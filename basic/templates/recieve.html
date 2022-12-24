@@ -1,0 +1,15 @@
+<h1>Choose your gift!</h1>
+{% for post in posts %}
+<div>
+    <form method="POST" action='req'>
+        {% csrf_token %}
+<hr>
+{{post.id}}
+<div>{{post.Title}}<div>
+<div>{{post.date}}</div>
+<div>Description: {{post.description}}<div>
+<div>Posted by {{post.postedby}},{{post.city}},{{post.country}}.
+<button name="postid" value={{post.id}}>Request</button>
+</form>
+<div>
+{% endfor %}
