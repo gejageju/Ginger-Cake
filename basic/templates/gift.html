@@ -5,13 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Christmas Giveaway</title>
     <link rel="stylesheet" href="{% static 'styles-index.css'%}" />
+    
+  <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'>
     <script src="dist/script.js"></script>
 </head>
 <body>
     <!--navbar-->
     <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
         <div class="flex items-center">
-          <a href='home'><img  src={% static 'assets/Logo_black.svg'%} alt="Logo" class="h-4" /></a>
+          <a class="navbar-brand" href="home"> Ginger<span style="color: #d96359;">Cake</span></a>
+       <style>
+        .navbar-brand{
+          font-size: 40px ; 
+          font-family:Cookie ; 
+          color:black;
+          display: block ; 
+          line-height: 60px;
+          padding: 0 26px;
+          font-weight: medium;
+          text-shadow: 0px 0.5px, 0.5px 0px, 0.5px 0px;
+        }
+        </style>
         </div>
         <ul class="font-montserrat items-center hidden md:flex">
           <li class="mx-3 ">

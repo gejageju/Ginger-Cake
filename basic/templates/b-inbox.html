@@ -8,12 +8,26 @@
   <link rel="stylesheet" href="{% static 'styles-index.css'%}" />
   <script src="{% static 'script-index.js'%}"></script>
   <link href='https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css'rel="stylesheet">
+  
+  <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'>
 </head>
 <body>
   
   <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
     <div class="flex items-center">
-      <img src="{% static 'assets/Logo_black.svg'%}" alt="Logo" class="h-4" />
+      <a class="navbar-brand" href="home"> Ginger<span style="color: #d96359;">Cake</span></a>
+       <style>
+        .navbar-brand{
+          font-size: 40px ; 
+          font-family:Cookie ; 
+          color:black;
+          display: block ; 
+          line-height: 60px;
+          padding: 0 26px;
+          font-weight: medium;
+          text-shadow: 0px 0.5px, 0.5px 0px, 0.5px 0px;
+        }
+        </style>
     </div>
     <ul class="font-montserrat items-center hidden md:flex">
       <li class="mx-3 ">
@@ -53,7 +67,7 @@
 <!-- component -->
 <main class="flex py-20 h-screen p-3 bg-secondary">
     
-    <section class="flex flex-col mx-10 pt-3 w-4/12 bg-gray-50 h-full overflow-y-scroll">
+    <section class="flex flex-col mx-10 pt-3 w-4/12 bg-gray-50 h-full overflow-y-scroll" style="margin-top:20px;">
       
       <label class="px-3">
         <input class="rounded-lg border-2 border-black text-montserrat border-solid p-4 bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 w-full"
