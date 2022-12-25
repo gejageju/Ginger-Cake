@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,11 +58,6 @@ body {
 
 
 <div id="display">
-
-<!-- <div class="container darker">
-  <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
-  <span class="time-left">20th, April 2021</span>
-</div> -->
 
 </div>
 
@@ -158,4 +153,249 @@ setInterval(function(){
   });
 </script>
 
+</html> -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christmas Giveaway</title>
+  <link rel="stylesheet" href="{% static 'styles-index.css'%}" />
+  <script src="{% static 'script-index.js'%}"></script>
+  <link href='https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css' rel="stylesheet">
+  <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+  <style>
+      .body1 {
+        position: flex;
+        width: 100%;
+        padding-top: 120px;
+        background-color: #45a049;
+        background-image: url("https://cdn.discordapp.com/attachments/769080039329103906/1056293075732934697/4521756.jpg");
+      }
+      .body2{
+        width:800px;
+        margin:auto;
+      }
+      .display{
+        max-width: 600px;
+        margin: 0 auto;
+        
+        display: flex;
+        flex-flow: column wrap;
+      }
+      .discussion {
+        max-width: 500px;
+        margin:auto;
+        color: #f4f2ed;
+        display: flex;
+        flex-flow: column wrap;
+      }
+
+      .bubble {
+        border-radius: 1em;
+        padding: 0.25em 0.75em;
+        margin: 1em;
+        max-width: 100%;
+        font-family: Montserrat;
+      }
+
+      .bubble.sender {
+        align-self: flex-start;
+        background-color: black;
+        color: #fff;
+      }
+      .bubble.recipient {
+        align-self: flex-end;
+        text-align: right;
+        background-color: #ffffff;
+      }
+
+      .bubble.sender.first { border-bottom-left-radius: 0.1em; }
+      .bubble.sender.last { border-top-left-radius: 0.1em; }
+      .bubble.sender.middle {
+        border-bottom-left-radius: 0.1em;
+        border-top-left-radius: 0.1em;
+      }
+
+      .bubble.recipient.first { border-bottom-right-radius: 0.1em; }
+      .bubble.recipient.last { border-top-right-radius: 0.1em; }
+      .bubble.recipient.middle {
+        border-bottom-right-radius: 0.1em;
+        border-top-right-radius: 0.1em;
+      }
+  </style>
+</head>
+
+<body>
+  <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
+    <div class="flex items-center">
+     <a href='home'> <img src="{% static 'assets/Logo_black.svg'%}" alt="Logo" class="h-4" /></a>
+    </div>
+    <ul class="font-montserrat items-center hidden md:flex">
+      <li class="mx-3 ">
+        <a class="growing-underline" href="recieve">Recieve a gift</a>
+      </li>
+      <li class="growing-underline mx-3">
+        <a href="gift">Share gifts</a>
+      </li>
+      <li class="growing-underline mx-3">
+        <a href="">About</a>
+      </li>
+    </ul>
+    
+    <div id="showMenu" class="md:hidden">
+      <img src="{% static 'assets/logos/Menu.svg'%}" alt="Menu icon" />
+    </div>
+  </nav>
+  <!--mob-navbar-->
+  <div id='mobileNav' class="hidden px-4 py-6 fixed top-0 left-0 h-full w-full bg-secondary z-20 animate-fade-in-down">
+    <div id="hideMenu" class="flex justify-end">
+      <img src='dist/assets/logos/Cross.svg' alt="" class="h-16 w-16" />
+    </div>
+    <ul class="font-montserrat flex flex-col mx-8 my-24 items-center text-3xl">
+      <li class="my-6">
+        <a href="recieve">Recieve a gift</a>
+      </li>
+      <li class="my-6">
+        <a href="share">Share a gift</a>
+      </li>
+      <li class="my-6">
+        <a href="">About</a>
+      </li>
+    </ul>
+  </div>
+
+<div class="body1">
+  <div class="body2">
+  <section id="discussion">
+  </section>
+</section>
+  <script>
+      function getMonthName(monthNumber){
+        const date=new Date();
+        date.setMonth(monthNumber-1);
+        return date.toLocaleString('en-US',{month:'long',});
+      }
+      $(document).ready(function(){
+
+      setInterval(function(){
+          $.ajax({
+              type: 'GET',
+              url : "/getMessages/{{room}}/",
+              success: function(response){
+                  console.log(response);
+                  $("#discussion").empty();
+                  var user1= response.messages[0].user;
+                  var year= response.messages[0].date.substring(0,4);
+                  var date= response.messages[0].date.substring(8,10);
+                  var month= getMonthName(response.messages[0].date.substring(5,7));
+                  var day="<div class='bubble recipient first'><p>"+date+" "+month+" "+year+"</p";
+                  $("#discussion").append(day);
+                  var flag1=0, flag2=0;
+                  for (var key in response.messages)
+                  {
+                      
+                      if(user1==response.messages[key].user){
+                          flag2=0;
+                          if(flag1==0){
+                            var temp="<div class='bubble recipient first'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p>"+response.messages[key].date.substring(11,16)+"</span></div>";
+                            $("#discussion").append(temp);
+                            flag1=1;
+                          }
+                          else{
+                            var temp="<div class='bubble recipient middle'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p>"+response.messages[key].date.substring(11,16)+"</span></div>";
+                            $("#discussion").append(temp);
+                          }
+                      }
+                      else{
+                        flag1=0;
+                        if(flag2==0){
+                            var temp="<div class='bubble sender first'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p>"+response.messages[key].date.substring(11,16)+"</span></div>";
+                            $("#discussion").append(temp);
+                            flag2=1;
+                          }
+                          else{
+                            var temp="<div class='bubble sender middle'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p>"+response.messages[key].date.substring(11,16)+"</span></div>";
+                            $("#discussion").append(temp);
+                          }
+                      }
+                      
+                  }
+              },
+              error: function(response){
+                  alert('An error occured')
+              }
+          });
+      },1000);
+      })
+  </script>
+   <div class="container"> 
+  <style>
+    input[type=text], select {
+      width: 90%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 2px solid #000;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: Montserrat;
+    }
+
+    input[type=submit] {
+      width: 9.3%;
+      background-color: black;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-image: url("https://icons8.com/icon/4QEkgDAmDfp6/send");
+    }
+
+    input[type=submit]:hover {
+      background-color: black;
+      background-image: url("https://icons8.com/icon/4QEkgDAmDfp6/send");
+    }
+
+    div {
+      border-radius: 5px;
+      background-color: #f4f2ed;
+      padding: 20px;
+    }
+    </style>
+
+    <form id="post-form">
+        {% csrf_token %}
+        <input type="hidden" name="username" id="username" value="{{username}}"/>
+        <input type="hidden" name="room_id" id="room_id" value="{{room_details}}"/>
+        <input type="text" name="message" id="message" width="100px" />
+        <input type="submit" value="Send">
+    </form>
+  </div>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+      $(document).on('submit','#post-form',function(e){
+        e.preventDefault();
+
+        $.ajax({
+          type:'POST',
+          url:'/send',
+          data:{
+              username:$('#username').val(),
+              room_id:$('#room_id').val(),
+              message:$('#message').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+          },
+          success: function(data){
+            //alert(data)
+          }
+        });
+        document.getElementById('message').value = ''
+      });
+</script>
 </html>
